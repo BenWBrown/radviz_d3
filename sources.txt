@@ -1,0 +1,4 @@
+http://orange.biolab.si/docs/latest/widgets/rst/visualize/radviz.html
+	kick off point
+http://www.agocg.ac.uk/reports/visual/casestud/brunsdon/radviz.htm
+	math
