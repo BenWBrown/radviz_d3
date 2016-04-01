@@ -1,10 +1,10 @@
 <!DOCTYPE HTML>
 <style type="text/css">
 	a:link {
-	    color: #4ba173;
+	    color: #FFDAB9;
 	}
 	a:visited {
-	    color: #63d297;
+	    color: #f5f5f5;
 	}
 	.small{
 		line-height: 0.4;
@@ -20,7 +20,11 @@
 		font-family: "Geneva";
 		font-weight: lighter;
 	}
+	li{
+		margin: 10px;
+	}
 	footer{
+		margin-top: 50px;
 		font-size: 10px;
 		color: #6c7f78;
 	}
@@ -44,7 +48,15 @@
 		font-size: 70px;
 	}
 	#general_title{
+		margin-top: 30px;
 		color: #63d297;
+	}
+	#bibliography{
+				font-size: 15px;
+	}
+	#presentation_materials{
+		margin-top: 40px;
+		line-height: 25px;
 	}
 </style>
 
@@ -66,7 +78,7 @@
 
 	<div id="introduction">
 		<h2 id="general_title">What is a RadViz?</h2>
-		<p> Info from slides here. Brief info from slides go here. Info from slides here. Brief info from slides go here. Info from slides here. Brief info from slides go here. Info from slides here. Brief info from slides go here. Info from slides here. Brief info from slides go here. Info from slides here. Brief info from slides go here.</p>
+		<p>RadViz is a non-linear visualization tool that displays data on three or more attributes in a two-dimensional projection. While the attributes are represented through equally-spaced points along the perimeter of a circle, the actual data instances are positioned within the circle according to their proportional composition of each attribute.</p>
 </div>
 
 <div id="implementation">
@@ -77,23 +89,23 @@
 <div id="bibliography">
 	<h2 id="general_title">Bibliography</h2>
 	<ol>
-	   <li>http://orange.biolab.si/docs/latest/widgets/rst/visualize/radviz.html,
-	<span class=sourceInfo>kick off point</span></li>
-		<li>http://www.agocg.ac.uk/reports/visual/casestud/brunsdon/radviz.html,
-	<span class=sourceInfo>math</span></li>
-		<li>http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv
-	<span class=sourceInfo>andrew's census data</span></li>
+	   <li>"Radviz - Orange Documentation V2.7.8." <i>Orange.</i> University of Ljubljana, n.d. Web. 24 Mar. 2016. <a href="http://orange.biolab.si/docs/latest/widgets/rst/visualize/radviz.html">http://orange.biolab.si/docs/latest/widgets/rst/visualize/radviz.html</a>,
+	<span class=sourceInfo>Kick off point</span></li>
+	<li>Brunsdon, C., A. S. Fotheringham, and M. E. Charlton. "The RADVIZ Approach to Visualization." <i>An Investigation of Methods for Visualising Highly Multivariate Datasets.</i> N.p.: Advisory Group on Computer Graphics, 1998. N. pag. Web. 24 Mar. 2016.<a href="http://www.agocg.ac.uk/reports/visual/casestud/brunsdon/radviz.htm">http://www.agocg.ac.uk/reports/visual/casestud/brunsdon/radviz.htm</a>,
+<span class=sourceInfo>Math</span></li>
+		<li><a href="http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv">http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv</a>
+	<span class=sourceInfo>Data used in implementation</span></li>
 		<li>http://www.cs.middlebury.edu/~candrews/classes/infovis/assignments/assignment4.html
 	<span class=sourceInfo>page where find andrew's census data (maybe unnecessary)</span></li>
-	<li>http://orange.biolab.si/docs/latest/widgets/rst/visualize/radviz.html,
-	<span class=sourceInfo>kick off point</span></li>
-	 <li>http://www.agocg.ac.uk/reports/visual/casestud/brunsdon/radviz.html,
-	<span class=sourceInfo>math</span></li>
-	 <li>http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv
-	<span class=sourceInfo>andrew's census data</span></li>
-	 <li>http://www.cs.middlebury.edu/~candrews/classes/infovis/assignments/assignment4.html
-	<span class=sourceInfo>page where find andrew's census data (maybe unnecessary)</span></li>
 	</ol>
+
+
+	<div id="presentation_materials">
+		<h3>Presentation materials</h3>
+	<ul>
+		<li><a href="https://docs.google.com/presentation/d/1qh39xaxG2b13rzcrk_KVVviHGJSdPeTq2p6jZTyzBjQ/edit?usp=sharing">Google Slides Presentation</a></li>
+		<li><a href="https://github.com/BenWBrown/radviz_d3">Presentation Github Repo</a></li>
+	</ul>
 </body>
 
 
