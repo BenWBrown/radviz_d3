@@ -150,7 +150,7 @@
             var list = springConstants.map(function(element, index, array){
               return element(d[displayVars[index]]);}
               );
-            var sum = list.reduce((prev, curr) => prev + curr);
+            var sum = list.reduce(function(prev, cur) {return prev + cur;});
             var pt = {x:0, y:0};
             for (var i = 0; i < anchorPoints.length; i++) {
               pt.x += (list[i]/sum)*anchorPoints[i].x
