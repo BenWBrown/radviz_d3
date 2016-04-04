@@ -1,0 +1,5 @@
+implementation.html:
+	add labels to anchors
+	fix layering so mouseover works
+	create selection tool for attributes
+	maybe style with color?
