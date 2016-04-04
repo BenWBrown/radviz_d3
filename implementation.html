@@ -53,11 +53,13 @@
 </style>
   </head>
   <body>
-    <div id="visDiv"></div>
-<div id="controls">
-<p>X Axis: <select id="xSelect"><optgroup label="Metrics" id="xmetrics"></optgroup></select></p>
-<p>Y Axis: <select id="ySelect"><optgroup label="Metrics" id="ymetrics"></optgroup></select></p>
-</div>
+    <div id="visDiv">
+    </div>
+      <div id="controls">
+      <p>X Axis: <select id="xSelect"><optgroup label="Metrics" id="xmetrics"></optgroup></select></p>
+      <p>Y Axis: <select id="ySelect"><optgroup label="Metrics" id="ymetrics"></optgroup></select></p>
+      </div>
+
 
 <div id="info" class="hidden">
 <p id="state">State</p>
@@ -88,6 +90,9 @@
         var chart = svg.append("g")
           .attr("transform", "translate("+margins.left + "," + margins.top + ")");
 
+        var chartBorder = svg.append("g")
+          .attr("transform", "translate("+margins.left + "," + margins.top + ")");
+
         // var xAxisG = chart.append("g")
         //   .attr({"class": "axis",
         //           "transform": "translate(0," + chartHeight +")"});
@@ -107,6 +112,16 @@
           // xScale.domain(d3.extent(dataset, function(d){return +d[xData];}));
           // yScale.domain(d3.extent(dataset, function(d){return +d[yData];}));
           anchorPoints = displayVars.map(function(d, i, arr){return angleToPoint((2*Math.PI/arr.length)*i);});
+
+          var anchorCircles = chartBorder.selectAll("circle").data(anchorPoints);
+          anchorCircles.exit().remove();
+          anchorCircles.enter().append("circle");
+          anchorCircles.attr({
+            cx: function(d){return d.x},
+            cy: function(d){return d.y},
+            r: 3
+          })
+
 
           springConstants = displayVars.map(function(){return d3.scale.linear().range([0, 1]);});
           springConstants.forEach(function(element, index, array){
