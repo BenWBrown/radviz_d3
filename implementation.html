@@ -122,6 +122,14 @@
             r: 3
           })
 
+          chartBorder.append("circle")
+            .attr({
+              cx: center.x,
+              cy: center.y,
+              r: radius,
+              "fill-opacity": 0.0
+            })
+
 
           springConstants = displayVars.map(function(){return d3.scale.linear().range([0, 1]);});
           springConstants.forEach(function(element, index, array){
