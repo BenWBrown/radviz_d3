@@ -160,8 +160,8 @@
               .classed("selected", true)
               .attr("r", 8);
 
-            // var info = d3.select("#info");
-            // info.select("#state").text(d.State);
+            var info = d3.select("#info");
+            info.select("#state").text(d.State);
             // info.select("#variable1").text(xData);
             // info.select("#value1").text(d[xData]);
             // info.select("#variable2").text(yData);
@@ -225,7 +225,7 @@
 
       // vis.setX("perCollege")
       //   .setY("income");
-      vis.setVars(["perCollege", "perWhite", "income"]);
+      vis.setVars(["perCollege", "perWhite", "income", "perPoverty", "perUnder5"]);
 
       d3.csv("http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv",
         function(dataset){
