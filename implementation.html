@@ -281,7 +281,7 @@
       //   .setY("income");
 
 
-      vis.setVars(variables);
+      vis.setVars(["income", "perWhite"]);
 
       d3.csv("http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv",
         function(dataset){
@@ -300,16 +300,22 @@
           document.getElementById('xSelect').value = "perCollege";
           document.getElementById('ySelect').value = "income";
 
-          d3.select("#xSelect").on("change", function(){
-            vis.setX(this.value);
-            vis();
+          // d3.select("#xSelect").on("change", function(){
+          //   vis.setX(this.value);
+          //   vis();
 
-          });
+          // });
 
-          d3.select("#ySelect").on("change", function(){
-            vis.setY(this.value);
-            vis();
+          // d3.select("#ySelect").on("change", function(){
+          //   vis.setY(this.value);
+          //   vis();
 
+          // });
+
+          // var selection = d3.select("#setVars");
+          // console.log("hi");
+          var selection = d3.select("#setVars").on("change", function(d){
+            console.log("hi");
           });
 
       });
