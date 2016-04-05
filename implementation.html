@@ -66,9 +66,9 @@
 
     <form action="setVariables" id="setVars">
       <p> <b>Select Variables</b> </p>
-      <input type="checkbox" name="population" value="population">population<br>
-      <input type="checkbox" name="perUnder5" value="perUnder5">perUnder5<br>
-      <input type="checkbox" name="perUnder18" value="perUnder18">perUnder18<br>
+      <input type="checkbox" name="population" value="population"checked>population<br>
+      <input type="checkbox" name="perUnder5" value="perUnder5"checked>perUnder5<br>
+      <input type="checkbox" name="perUnder18" value="perUnder18"checked>perUnder18<br>
       <input type="checkbox" name="perOver65" value="perOver65">perOver65<br>
       <input type="checkbox" name="PerF" value="PerF">PerF<br>
       <input type="checkbox" name="perWhite" value="perWhite">perWhite<br>
@@ -281,25 +281,27 @@
       //   .setY("income");
 
 
-      vis.setVars(["income", "perWhite"]);
+      vis.setVars(["population", "perUnder5", "perUnder18"]);
+
+      var variables = [];
 
       d3.csv("http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv",
         function(dataset){
           vis.loadData(dataset);
           vis();
 
-          var variables = [];
-          var xmenu = d3.select("#xmetrics");
-          var ymenu = d3.select("#ymetrics");
-          for (prop in dataset[0]){
-            if (prop != "State" && prop != "stateAbbr"){
-              xmenu.append("option").attr("value", prop).text(prop);
-              ymenu.append("option").attr("value", prop).text(prop);
-            }
-          }
 
-          document.getElementById('xSelect').value = "perCollege";
-          document.getElementById('ySelect').value = "income";
+          // var xmenu = d3.select("#xmetrics");
+          // var ymenu = d3.select("#ymetrics");
+          // for (prop in dataset[0]){
+          //   if (prop != "State" && prop != "stateAbbr"){
+          //     xmenu.append("option").attr("value", prop).text(prop);
+          //     ymenu.append("option").attr("value", prop).text(prop);
+          //   }
+          // }
+          //
+          // document.getElementById('xSelect').value = "perCollege";
+          // document.getElementById('ySelect').value = "income";
 
           // d3.select("#xSelect").on("change", function(){
           //   vis.setX(this.value);
