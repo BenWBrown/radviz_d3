@@ -7,47 +7,47 @@
 
 
       <style type="text/css">
-      .axis text{
-          font-family:sans-serif;
-          font-size:11px;
+      body{
+        font-family: sans-serif;;
       }
-      .axis path,
-      .axis line{
-        fill:none;
-        stroke:gray;
-        shape-rendering: crisp-edges;
-      }
-
       circle.selected{
-        fill:red;
+        fill:#3eb489;
       }
-
       circle{
         fill:black;
       }
-
-      #setVars{
-        float: left;;
-      }
-
+#setVars{
+  float: left;
+  background-color: #ededed;
+  border-radius: 10px;
+  padding: 15px;
+  margin-right:75px;
+  margin-left: 50px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+#setVars p{
+  text-align: center;
+  line-height: 5%;
+}
+#visDiv{
+  float: left;
+}
 #controls{
   float:left;
 }
 #info{
   position:absolute;
-  width:300px;
+  width:200px;
   height:auto;
   padding:10px;
   background-color:white;
   border-radius:10px;
   box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
-
 }
-
 #info.hidden{
   display:none;
 }
-
 #info p{
   margin:0px;
   font-family:sans-serif;
@@ -56,40 +56,49 @@
 
 </style>
   </head>
-  <body>
-    <div id="visDiv">
+  <body> <!-- Contains title, variable selection, vis and tooltop -->
+    <div id="title">
+      <h1>RadViz Implementation</h1>
+      <h3 style="text-align:center">Multivariate Exploration of US Census Data</h3>
     </div>
-      <div id="controls">
-      <p>X Axis: <select id="xSelect"><optgroup label="Metrics" id="xmetrics"></optgroup></select></p>
-      <p>Y Axis: <select id="ySelect"><optgroup label="Metrics" id="ymetrics"></optgroup></select></p>
-      </div>
+
 
     <form action="setVariables" id="setVars">
       <p> <b>Select Variables</b> </p>
-      <input type="checkbox" name="population" value="population"checked>population<br>
-      <input type="checkbox" name="perUnder5" value="perUnder5"checked>perUnder5<br>
-      <input type="checkbox" name="perUnder18" value="perUnder18"checked>perUnder18<br>
-      <input type="checkbox" name="perOver65" value="perOver65">perOver65<br>
-      <input type="checkbox" name="PerF" value="PerF">PerF<br>
-      <input type="checkbox" name="perWhite" value="perWhite">perWhite<br>
-      <input type="checkbox" name="perBlack" value="perBlack">perBlack<br>
-      <input type="checkbox" name="perNative" value="perNative">perNative<br>
-      <input type="checkbox" name="perAsian" value="perAsian">perAsian<br>
-      <input type="checkbox" name="perPacific" value="perPacific">perPacific<br>
-      <input type="checkbox" name="perMix" value="perMix">perMix<br>
-      <input type="checkbox" name="perSameHouse" value="perSameHouse">perSameHouse<br>
-      <input type="checkbox" name="perForeignBorn" value="perForeignBorn">perForeignBorn<br>
-      <input type="checkbox" name="perHighSchool" value="perHighSchool">perHighSchool<br>
-      <input type="checkbox" name="perCollege" value="perCollege">perCollege<br>
-      <input type="checkbox" name="veterans" value="veterans">veterans<br>
-      <input type="checkbox" name="travelTime" value="travelTime">travelTime<br>
-      <input type="checkbox" name="income" value="income">income<br>
-      <input type="checkbox" name="incomeHousehold" value="incomeHousehold">incomeHousehold<br>
-      <input type="checkbox" name="perPoverty" value="perPoverty">perPoverty<br>
-      <input type="checkbox" name="squareMiles" value="squareMiles">squareMiles<br>
-      <input type="checkbox" name="popPerSqMile" value="popPerSqMile">popPerSqMile<br>
-      <input type="submit" value="Submit">
+          <table>
+       <tr>
+          <td>
+            <input type="checkbox" name="population" value="population"checked>population<br>
+            <input type="checkbox" name="perUnder5" value="perUnder5"checked>perUnder5<br>
+            <input type="checkbox" name="perUnder18" value="perUnder18"checked>perUnder18<br>
+            <input type="checkbox" name="perOver65" value="perOver65">perOver65<br>
+            <input type="checkbox" name="PerF" value="PerF">PerF<br>
+            <input type="checkbox" name="perWhite" value="perWhite">perWhite<br>
+            <input type="checkbox" name="perBlack" value="perBlack">perBlack<br>
+            <input type="checkbox" name="perNative" value="perNative">perNative<br>
+            <input type="checkbox" name="perAsian" value="perAsian">perAsian<br>
+            <input type="checkbox" name="perPacific" value="perPacific">perPacific<br>
+            <input type="checkbox" name="perMix" value="perMix">perMix
+          </td>
+          <td>
+            <input type="checkbox" name="perSameHouse" value="perSameHouse">perSameHouse<br>
+            <input type="checkbox" name="perForeignBorn" value="perForeignBorn">perForeignBorn<br>
+            <input type="checkbox" name="perHighSchool" value="perHighSchool">perHighSchool<br>
+            <input type="checkbox" name="perCollege" value="perCollege">perCollege<br>
+            <input type="checkbox" name="veterans" value="veterans">veterans<br>
+            <input type="checkbox" name="travelTime" value="travelTime">travelTime<br>
+            <input type="checkbox" name="income" value="income">income<br>
+            <input type="checkbox" name="incomeHousehold" value="incomeHousehold">incomeHousehold<br>
+            <input type="checkbox" name="perPoverty" value="perPoverty">perPoverty<br>
+            <input type="checkbox" name="squareMiles" value="squareMiles">squareMiles<br>
+            <input type="checkbox" name="popPerSqMile" value="popPerSqMile">popPerSqMile<br>
+          </td>
+       </tr>
+    </table>
     </form>
+
+    <div id="visDiv">
+    </div>
 
 
 <div id="info" class="hidden">
@@ -108,11 +117,6 @@
         var center = {x: chartWidth/2, y: chartHeight/2};
         var radius = Math.min(center.x, center.y);
 
-        // var xScale = d3.scale.linear().range([0, chartWidth]);
-        // var yScale = d3.scale.linear().range([chartHeight, 0]);
-
-        // var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
-        // var yAxis = d3.svg.axis().scale(yScale).orient("left");
 
         var svg = d3.select(parent)
           .append("svg")
@@ -123,13 +127,6 @@
 
         var chartBorder = svg.append("g")
           .attr("transform", "translate("+margins.left + "," + margins.top + ")")
-
-        // var xAxisG = chart.append("g")
-        //   .attr({"class": "axis",
-        //           "transform": "translate(0," + chartHeight +")"});
-
-        // var yAxisG = chart.append("g")
-        //   .attr({"class": "axis"});
 
         var angleToPoint = function(angle) {
           return {
@@ -150,7 +147,8 @@
             cx: function(d){return d.x},
             cy: function(d){return d.y},
             r: 3
-          })
+          });
+
 
           chartBorder.append("circle")
           .attr({
@@ -158,7 +156,7 @@
             cy: center.y,
             r: radius,
             })
-            .style("stroke", "black")    // set the line colour
+            .style("stroke", "black")    // set the line color
             .style("fill", "none");
 
           springConstants = displayVars.map(function(){return d3.scale.linear().range([0, 1]);});
@@ -173,12 +171,12 @@
           circles.enter().append("circle");
 
           // circles.transition()
-          // .duration(1000)
-          // .attr({
-          //   cx: function(d){return xScale(+d[xData]);},
-          //   cy: function(d){return yScale(+d[yData]);},
+          //   .duration(1000)
+          //   .attr({
+          //   cx: function(d){return getX(d);},
+          //   cy: function(d){return getY(d);},
           //   r : 2
-          // });
+          //   });
 
           var getPt = function(d) {
             // var sum = 0;
@@ -213,10 +211,11 @@
               .classed("selected", true)
               .attr("r", 8);
 
-            var info = d3.select("#info");
-            info.select("#state").text(d.State);
-            // info.select("#variable1").text(xData);
-            // info.select("#value1").text(d[xData]);
+            // var info = d3.select("#info");
+            // info.select("#state").text(d.State);
+            // My failed attempt to get this to work: (variables is undefined)
+            // info.select("#variable1").text(variables[1]);
+            // info.select("#value1").text(variables[1][xData]);
             // info.select("#variable2").text(yData);
             // info.select("#value2").text(d[yData]);
 
@@ -241,10 +240,6 @@
               info.classed("hidden", true);
           });
 
-
-
-          // xAxisG.call(xAxis);
-          // yAxisG.call(yAxis);
         };
 
 
@@ -280,28 +275,16 @@
       // vis.setX("perCollege")
       //   .setY("income");
 
-
+      // Set variables to initial values (default values for the vis). They are also checked above in the form.
       vis.setVars(["population", "perUnder5", "perUnder18"]);
 
+      // Intiailize variables (Ben... weird ordering? It was at the top in createVis and was undefined. Scope in JavaScript confuses me)
       var variables = [];
 
       d3.csv("http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv",
         function(dataset){
           vis.loadData(dataset);
           vis();
-
-
-          // var xmenu = d3.select("#xmetrics");
-          // var ymenu = d3.select("#ymetrics");
-          // for (prop in dataset[0]){
-          //   if (prop != "State" && prop != "stateAbbr"){
-          //     xmenu.append("option").attr("value", prop).text(prop);
-          //     ymenu.append("option").attr("value", prop).text(prop);
-          //   }
-          // }
-          //
-          // document.getElementById('xSelect').value = "perCollege";
-          // document.getElementById('ySelect').value = "income";
 
           // d3.select("#xSelect").on("change", function(){
           //   vis.setX(this.value);
@@ -315,17 +298,8 @@
 
           // });
 
-          // var selection = d3.select("#setVars");
-          // console.log("hi");
 
-          // var createArray = function selectChecked(field){
-          //     for(var i = 0; i < field.length; i++){
-          //       if (field[i].checked){
-          //         variables.push(field.name);
-          //       }
-          //     }
-          // }
-
+          // Allow for user to adjust displayed variables and redraws vis as changes occur.
           var selection = d3.select("#setVars").on("change", function(d){
             for(var i = 0; i < setVars.length; i++){
               if(variables[i] != setVars[i].name){
