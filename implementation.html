@@ -26,6 +26,10 @@
         fill:black;
       }
 
+      #setVars{
+        float: left;;
+      }
+
 #controls{
   float:left;
 }
@@ -60,15 +64,43 @@
       <p>Y Axis: <select id="ySelect"><optgroup label="Metrics" id="ymetrics"></optgroup></select></p>
       </div>
 
+    <form action="setVariables" id="setVars">
+      <p> <b>Select Variables</b> </p>
+      <input type="checkbox" name="population" value="population">population<br>
+      <input type="checkbox" name="perUnder5" value="perUnder5">perUnder5<br>
+      <input type="checkbox" name="perUnder18" value="perUnder18">perUnder18<br>
+      <input type="checkbox" name="perOver65" value="perOver65">perOver65<br>
+      <input type="checkbox" name="PerF" value="PerF">PerF<br>
+      <input type="checkbox" name="perWhite" value="perWhite">perWhite<br>
+      <input type="checkbox" name="perBlack" value="perBlack">perBlack<br>
+      <input type="checkbox" name="perNative" value="perNative">perNative<br>
+      <input type="checkbox" name="perAsian" value="perAsian">perAsian<br>
+      <input type="checkbox" name="perPacific" value="perPacific">perPacific<br>
+      <input type="checkbox" name="perMix" value="perMix">perMix<br>
+      <input type="checkbox" name="perSameHouse" value="perSameHouse">perSameHouse<br>
+      <input type="checkbox" name="perForeignBorn" value="perForeignBorn">perForeignBorn<br>
+      <input type="checkbox" name="perHighSchool" value="perHighSchool">perHighSchool<br>
+      <input type="checkbox" name="perCollege" value="perCollege">perCollege<br>
+      <input type="checkbox" name="veterans" value="veterans">veterans<br>
+      <input type="checkbox" name="travelTime" value="travelTime">travelTime<br>
+      <input type="checkbox" name="income" value="income">income<br>
+      <input type="checkbox" name="incomeHousehold" value="incomeHousehold">incomeHousehold<br>
+      <input type="checkbox" name="perPoverty" value="perPoverty">perPoverty<br>
+      <input type="checkbox" name="squareMiles" value="squareMiles">squareMiles<br>
+      <input type="checkbox" name="popPerSqMile" value="popPerSqMile">popPerSqMile<br>
+      <input type="submit" value="Submit">
+    </form>
+
 
 <div id="info" class="hidden">
 <p id="state">State</p>
 <p><span id="variable1">Variable X</span>: <span id="value1">Value 1</span></p>
-<p><span id="variable2">Variable Y</span>: <span id="value2">Value 2</span></p>    
+<p><span id="variable2">Variable Y</span>: <span id="value2">Value 2</span></p>
 
     <script>
       var createVis = function(parent, width, height){
         var dataset, displayVars, springConstants, anchorPoints;
+        var variables = [];
 
         var margins = {top:20, bottom:60, left: 60, right:20};
         var chartWidth = width - margins.left - margins.right;
@@ -82,7 +114,6 @@
         // var xAxis = d3.svg.axis().scale(xScale).orient("bottom");
         // var yAxis = d3.svg.axis().scale(yScale).orient("left");
 
-
         var svg = d3.select(parent)
           .append("svg")
           .attr({width:width, height:height});
@@ -91,7 +122,7 @@
           .attr("transform", "translate("+margins.left + "," + margins.top + ")");
 
         var chartBorder = svg.append("g")
-          .attr("transform", "translate("+margins.left + "," + margins.top + ")");
+          .attr("transform", "translate("+margins.left + "," + margins.top + ")")
 
         // var xAxisG = chart.append("g")
         //   .attr({"class": "axis",
@@ -106,7 +137,6 @@
             y: center.y + radius*Math.sin(angle)
           };
         };
-
 
         var vis = function(){
           // xScale.domain(d3.extent(dataset, function(d){return +d[xData];}));
@@ -123,13 +153,13 @@
           })
 
           chartBorder.append("circle")
-            .attr({
-              cx: center.x,
-              cy: center.y,
-              r: radius,
-              "fill-opacity": 0.0
+          .attr({
+            cx: center.x,
+            cy: center.y,
+            r: radius,
             })
-
+            .style("stroke", "black")    // set the line colour
+            .style("fill", "none");
 
           springConstants = displayVars.map(function(){return d3.scale.linear().range([0, 1]);});
           springConstants.forEach(function(element, index, array){
@@ -229,6 +259,7 @@
           return vis
         }
 
+
         // vis.setX = function(value){
         //   if (!arguments.length) return xData;
         //   xData = value;
@@ -248,7 +279,9 @@
 
       // vis.setX("perCollege")
       //   .setY("income");
-      vis.setVars(["perCollege", "perWhite", "income", "perPoverty", "perUnder5"]);
+
+
+      vis.setVars(variables);
 
       d3.csv("http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv",
         function(dataset){
