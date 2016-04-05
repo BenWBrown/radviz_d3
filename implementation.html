@@ -288,6 +288,7 @@
           vis.loadData(dataset);
           vis();
 
+          var variables = [];
           var xmenu = d3.select("#xmetrics");
           var ymenu = d3.select("#ymetrics");
           for (prop in dataset[0]){
@@ -314,8 +315,29 @@
 
           // var selection = d3.select("#setVars");
           // console.log("hi");
+
+          // var createArray = function selectChecked(field){
+          //     for(var i = 0; i < field.length; i++){
+          //       if (field[i].checked){
+          //         variables.push(field.name);
+          //       }
+          //     }
+          // }
+
           var selection = d3.select("#setVars").on("change", function(d){
-            console.log("hi");
+            for(var i = 0; i < setVars.length; i++){
+              if(variables[i] != setVars[i].name){
+                  if (setVars[i].checked){
+                    variables.push(setVars[i].name);
+                  }
+                  if(!setVars[i].checked){
+                    variables.splice(i);
+                  }
+                }
+              }
+            console.log(variables);
+            vis.setVars(variables);
+            vis();
           });
 
       });
