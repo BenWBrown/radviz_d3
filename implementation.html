@@ -143,7 +143,10 @@
           var anchorCircles = chartBorder.selectAll("circle").data(anchorPoints);
           anchorCircles.exit().remove();
           anchorCircles.enter().append("circle");
-          anchorCircles.attr({
+          anchorCircles
+          //.transition()  //THESE *ALMOST* WORK
+          //.duration(500) //TODO: FIX THEM
+          .attr({
             cx: function(d){return d.x},
             cy: function(d){return d.y},
             r: 3
@@ -200,7 +203,9 @@
 
           var getY = function(d) {return getPt(d).y; };
 
-          circles.attr({
+          circles.transition()
+          .duration(500)
+          .attr({
             cx: getX,
             cy: getY,
             r: 2
