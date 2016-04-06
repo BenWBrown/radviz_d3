@@ -109,7 +109,7 @@
     <script>
       var createVis = function(parent, width, height){
         var dataset, displayVars, springConstants, anchorPoints;
-        var variables = [];
+        //var variables = [];
 
         var margins = {top:20, bottom:60, left: 60, right:20};
         var chartWidth = width - margins.left - margins.right;
@@ -279,7 +279,7 @@
       vis.setVars(["population", "perUnder5", "perUnder18"]);
 
       // Intiailize variables (Ben... weird ordering? It was at the top in createVis and was undefined. Scope in JavaScript confuses me)
-      var variables = [];
+      //var variables = [];
 
       d3.csv("http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv",
         function(dataset){
@@ -301,17 +301,12 @@
 
           // Allow for user to adjust displayed variables and redraws vis as changes occur.
           var selection = d3.select("#setVars").on("change", function(d){
-            for(var i = 0; i < setVars.length; i++){
-              if(variables[i] != setVars[i].name){
-                  if (setVars[i].checked){
-                    variables.push(setVars[i].name);
-                  }
-                  if(!setVars[i].checked){
-                    variables.splice(i);
-                  }
-                }
-              }
-            console.log(variables);
+            var selection = document.querySelectorAll('input[type="checkbox"]:checked');
+            var variables = [];
+            for (var i=0; i<selection.length; i++) {
+              variables.push(selection[i].value);
+            }
+            //console.log(variables);
             vis.setVars(variables);
             vis();
           });
