@@ -67,7 +67,7 @@
       <p> <b>Select Variables</b> </p>
           <table>
        <tr>
-          <td>
+          <td id="column1">
             <input type="checkbox" name="population" value="population"checked>population<br>
             <input type="checkbox" name="perUnder5" value="perUnder5"checked>perUnder5<br>
             <input type="checkbox" name="perUnder18" value="perUnder18"checked>perUnder18<br>
@@ -80,7 +80,7 @@
             <input type="checkbox" name="perPacific" value="perPacific">perPacific<br>
             <input type="checkbox" name="perMix" value="perMix">perMix
           </td>
-          <td>
+          <td id="column2">
             <input type="checkbox" name="perSameHouse" value="perSameHouse">perSameHouse<br>
             <input type="checkbox" name="perForeignBorn" value="perForeignBorn">perForeignBorn<br>
             <input type="checkbox" name="perHighSchool" value="perHighSchool">perHighSchool<br>
@@ -287,7 +287,28 @@
       //var variables = [];
 
       d3.csv("http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv",
-        function(dataset){
+        function(dataset){ if(dataset) {
+
+          //TODO: ELLEN: ACTUALLY WRITE THIS. CHECK STACK OVERFLOW FOR IDEAS
+          var isNumeric = function(value) {
+            return true;
+          }
+
+          //TODO: ELLEN: ACTUALLY WRITE THIS.
+          var addToTable = function(propertyList) {
+
+          }
+
+          var numericProps = []
+          for (property in dataset[0]) {
+            if isNumeric(dataset[0].property) {
+              numericProps.push(property);
+            }
+          }
+          addToTable(numericProps);
+
+
+
           vis.loadData(dataset);
           vis();
 
@@ -316,7 +337,7 @@
             vis();
           });
 
-      });
+      }});
 
 
 
