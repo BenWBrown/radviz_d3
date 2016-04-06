@@ -291,17 +291,18 @@
 
           //TODO: ELLEN: ACTUALLY WRITE THIS. CHECK STACK OVERFLOW FOR IDEAS
           var isNumeric = function(value) {
+            debugger;
             return true;
           }
 
           //TODO: ELLEN: ACTUALLY WRITE THIS.
           var addToTable = function(propertyList) {
-
+            debugger;
           }
 
           var numericProps = []
           for (property in dataset[0]) {
-            if isNumeric(dataset[0].property) {
+            if (isNumeric(dataset[0][property])) {
               numericProps.push(property);
             }
           }
