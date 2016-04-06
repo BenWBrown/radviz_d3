@@ -273,18 +273,36 @@
           //TODO: ELLEN: ACTUALLY WRITE THIS.
           var addToTable = function(propertyList) {
 
-            var table1 = document.getElementById("column1");
+            var inputlist = d3.select("#column1").selectAll("input").data(propertyList);
 
-            for (var i = 0; i < propertyList.length; i++) {
-                var checkBox = document.createElement("input");
-                var label = document.createElement("label");
-                checkBox.type = "checkbox";
-                checkBox.value = propertyList[i];
-                table1.appendChild(checkBox);
-                table1.appendChild(label);
-                table1.appendChild(document.createTextNode(propertyList[i]));
-            }
-          }
+            inputlist.exit().remove();
+
+            var checkboxes = inputlist.enter().append("g");
+
+            checkboxes.append("input")
+            .attr({
+              "type":"checkbox",
+              "value":function(d){return d},
+              "label":function(d){return d}
+            });
+
+            checkboxes.append("text").text(function(d){return d});
+
+            //checkboxes.append("p").text("hello");
+            //.style("text", function(d){return d});
+
+          };
+
+            // var table1 = document.getElementById("column1");
+
+            // for (var i = 0; i < propertyList.length; i++) {
+            //     var checkBox = document.createElement("input");
+            //     var label = document.createElement("label");
+            //     checkBox.type = "checkbox";
+            //     checkBox.value = propertyList[i];
+            //     table1.appendChild(checkBox);
+            //     table1.appendChild(label);
+            //     table1.appendChild(document.createTextNode(propertyList[i]));
 
           var numericProps = []
           for (property in dataset[0]) {
