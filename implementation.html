@@ -67,32 +67,7 @@
       <p> <b>Select Variables</b> </p>
           <table>
        <tr>
-          <td id="column1">
-            <input type="checkbox" name="population" value="population"checked>population<br>
-            <input type="checkbox" name="perUnder5" value="perUnder5"checked>perUnder5<br>
-            <input type="checkbox" name="perUnder18" value="perUnder18"checked>perUnder18<br>
-            <input type="checkbox" name="perOver65" value="perOver65">perOver65<br>
-            <input type="checkbox" name="PerF" value="PerF">PerF<br>
-            <input type="checkbox" name="perWhite" value="perWhite">perWhite<br>
-            <input type="checkbox" name="perBlack" value="perBlack">perBlack<br>
-            <input type="checkbox" name="perNative" value="perNative">perNative<br>
-            <input type="checkbox" name="perAsian" value="perAsian">perAsian<br>
-            <input type="checkbox" name="perPacific" value="perPacific">perPacific<br>
-            <input type="checkbox" name="perMix" value="perMix">perMix
-          </td>
-          <td id="column2">
-            <input type="checkbox" name="perSameHouse" value="perSameHouse">perSameHouse<br>
-            <input type="checkbox" name="perForeignBorn" value="perForeignBorn">perForeignBorn<br>
-            <input type="checkbox" name="perHighSchool" value="perHighSchool">perHighSchool<br>
-            <input type="checkbox" name="perCollege" value="perCollege">perCollege<br>
-            <input type="checkbox" name="veterans" value="veterans">veterans<br>
-            <input type="checkbox" name="travelTime" value="travelTime">travelTime<br>
-            <input type="checkbox" name="income" value="income">income<br>
-            <input type="checkbox" name="incomeHousehold" value="incomeHousehold">incomeHousehold<br>
-            <input type="checkbox" name="perPoverty" value="perPoverty">perPoverty<br>
-            <input type="checkbox" name="squareMiles" value="squareMiles">squareMiles<br>
-            <input type="checkbox" name="popPerSqMile" value="popPerSqMile">popPerSqMile<br>
-          </td>
+          <td id="column1"></td>
        </tr>
     </table>
     </form>
@@ -291,13 +266,25 @@
 
           //TODO: ELLEN: ACTUALLY WRITE THIS. CHECK STACK OVERFLOW FOR IDEAS
           var isNumeric = function(value) {
-            debugger;
+            //debugger;
             return true;
           }
 
+
           //TODO: ELLEN: ACTUALLY WRITE THIS.
           var addToTable = function(propertyList) {
-            debugger;
+
+            var table1 = document.getElementById("column1");
+
+            for (var i = 0; i < propertyList.length; i++) {
+                var checkBox = document.createElement("input");
+                var label = document.createElement("label");
+                checkBox.type = "checkbox";
+                checkBox.value = propertyList[i];
+                table1.appendChild(checkBox);
+                table1.appendChild(label);
+                table1.appendChild(document.createTextNode(propertyList[i]));
+            }
           }
 
           var numericProps = []
