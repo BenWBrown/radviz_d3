@@ -264,10 +264,9 @@
       d3.csv("http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv",
         function(dataset){ if(dataset) {
 
-          //TODO: ELLEN: ACTUALLY WRITE THIS. CHECK STACK OVERFLOW FOR IDEAS
-          var isNumeric = function(value) {
-            //debugger;
-            return true;
+          //copied from: http://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric
+          var isNumeric = function( n ) {
+            return !isNaN(parseFloat(n)) && isFinite(n);
           }
 
 
