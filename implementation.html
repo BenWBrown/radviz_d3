@@ -62,8 +62,11 @@
   <body> <!-- Contains title, variable selection, vis and tooltop -->
     <div id="title">
       <h1>RadViz Implementation</h1>
-      <h3 style="text-align:center">Multivariate Exploration of US Census Data</h3>
+      <!--<h3 style="text-align:center">Multivariate Exploration of US Census Data</h3>-->
     </div>
+
+    Enter csv url: <input type="text" id="inputURL" value="http://www.cs.middlebury.edu/~candrews/classes/infovis/data/green500_top_201511.csv">
+    <button type="button" onclick="loadData()">Load Data!</button>
 
 
     <form action="setVariables" id="setVars">
@@ -122,8 +125,8 @@
           anchorCircles.exit().remove();
           anchorCircles.enter().append("circle");
           anchorCircles
-          //.transition()  //THESE *ALMOST* WORK
-          //.duration(500) //TODO: FIX THEM
+          // .transition()  //THESE *ALMOST* WORK. i think we need a finer selection as to not select the border circle
+          // .duration(500) //TODO: FIX THEM
           .attr({
             cx: function(d){return d.x},
             cy: function(d){return d.y},
@@ -194,8 +197,8 @@
               .classed("selected", true)
               .attr("r", 8);
 
-            // var info = d3.select("#info");
-            // info.select("#state").text(d.State);
+            var info = d3.select("#info");
+            info.select("#state").text(d.State);
             // My failed attempt to get this to work: (variables is undefined)
             // info.select("#variable1").text(variables[1]);
             // info.select("#value1").text(variables[1][xData]);
@@ -254,98 +257,67 @@
       };
 
       var vis = createVis("#visDiv", 400,400);
+      var loadData = function() {
+        url = document.getElementById("inputURL").value;
+        console.log(url);
 
-      // vis.setX("perCollege")
-      //   .setY("income");
+        d3.csv(url,
+          function(dataset){ if(!dataset) {alert("Invalid data"); return;}
 
-      // Set variables to initial values (default values for the vis). They are also checked above in the form.
-      vis.setVars(["population", "perUnder5", "perUnder18"]);
-
-      // Intiailize variables (Ben... weird ordering? It was at the top in createVis and was undefined. Scope in JavaScript confuses me)
-      //var variables = [];
-
-      d3.csv("http://www.cs.middlebury.edu/~candrews/classes/infovis/data/census.csv",
-        function(dataset){ if(dataset) {
-
-          //copied from: http://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric
-          var isNumeric = function( n ) {
-            return !isNaN(parseFloat(n)) && isFinite(n);
-          }
-
-
-          //TODO: ELLEN: ACTUALLY WRITE THIS.
-          var addToTable = function(propertyList) {
-
-            var inputlist = d3.select("#column1").selectAll("input").data(propertyList);
-
-            inputlist.exit().remove();
-
-            var checkboxes = inputlist.enter().append("g");
-
-            checkboxes.append("input")
-            .attr({
-              "type":"checkbox",
-              "value":function(d){return d},
-              "label":function(d){return d}
-            });
-
-            checkboxes.append("text").text(function(d){return d}).append("p");
-
-            //checkboxes.append("p").text("hello");
-            //.style("text", function(d){return d});
-
-          };
-
-            // var table1 = document.getElementById("column1");
-
-            // for (var i = 0; i < propertyList.length; i++) {
-            //     var checkBox = document.createElement("input");
-            //     var label = document.createElement("label");
-            //     checkBox.type = "checkbox";
-            //     checkBox.value = propertyList[i];
-            //     table1.appendChild(checkBox);
-            //     table1.appendChild(label);
-            //     table1.appendChild(document.createTextNode(propertyList[i]));
-
-          var numericProps = []
-          for (property in dataset[0]) {
-            if (isNumeric(dataset[0][property])) {
-              numericProps.push(property);
+            //copied from: http://stackoverflow.com/questions/18082/validate-decimal-numbers-in-javascript-isnumeric
+            var isNumeric = function( n ) {
+              return !isNaN(parseFloat(n)) && isFinite(n);
             }
-          }
-          addToTable(numericProps);
 
 
+            //TODO: ELLEN: ACTUALLY WRITE THIS.
+            var addToTable = function(propertyList) {
 
-          vis.loadData(dataset);
-          vis();
+              var inputlist = d3.select("#column1").selectAll("input").data(propertyList);
 
-          // d3.select("#xSelect").on("change", function(){
-          //   vis.setX(this.value);
-          //   vis();
+              inputlist.exit().remove();
 
-          // });
+              var checkboxes = inputlist.enter().append("g");
 
-          // d3.select("#ySelect").on("change", function(){
-          //   vis.setY(this.value);
-          //   vis();
+              checkboxes.append("input")
+              .attr({
+                "type":"checkbox",
+                "value":function(d){return d},
+                "label":function(d){return d}
+              });
 
-          // });
+              checkboxes.append("text").text(function(d){return d}).append("p");
 
+              //checkboxes.append("p").text("hello");
+              //.style("text", function(d){return d});
 
-          // Allow for user to adjust displayed variables and redraws vis as changes occur.
-          var selection = d3.select("#setVars").on("change", function(d){
-            var selection = document.querySelectorAll('input[type="checkbox"]:checked');
-            var variables = [];
-            for (var i=0; i<selection.length; i++) {
-              variables.push(selection[i].value);
+            };
+
+            var numericProps = []
+            for (property in dataset[0]) {
+              if (isNumeric(dataset[0][property])) {
+                numericProps.push(property);
+              }
             }
-            //console.log(variables);
-            vis.setVars(variables);
+            addToTable(numericProps);
+
+            vis.loadData(dataset);
+            vis.setVars([]);
             vis();
-          });
+        });
 
-      }});
+        // Allow for user to adjust displayed variables and redraws vis as changes occur.
+        var selection = d3.select("#setVars").on("change", function(d){
+          var selection = document.querySelectorAll('input[type="checkbox"]:checked');
+          var variables = [];
+          for (var i=0; i<selection.length; i++) {
+            variables.push(selection[i].value);
+          }
+          //console.log(variables);
+          vis.setVars(variables);
+          vis();
+        });
+      }
 
 
 
