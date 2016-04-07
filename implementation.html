@@ -207,7 +207,7 @@ div.container{
         var dataset, displayVars, springConstants, anchorPoints, tooltipVars, colorVar;
         //var variables = [];
 
-        var margins = {top:20, bottom:60, left: 60, right:20};
+        var margins = {top:60, bottom:60, left: 60, right:60};
         var chartWidth = width - margins.left - margins.right;
         var chartHeight = height - margins.top - margins.bottom;
         var center = {x: chartWidth/2, y: chartHeight/2};
@@ -245,7 +245,44 @@ div.container{
             cx: function(d){return d.x},
             cy: function(d){return d.y},
             r: 3
-          }).style("fill", "black");  //TODO: somehow color coordinate these?
+          }).style("fill", "black");
+
+          var offsetDistance = 7;
+
+          var getTextX = function(d, i) {
+            var xOffset = anchorPoints[i].x - center.x;
+            var yOffset = anchorPoints[i].y - center.y;
+            var angle = Math.atan2(yOffset, xOffset);
+            return anchorPoints[i].x + offsetDistance*Math.cos(angle);
+          };
+          var getTextY = function(d, i) {
+            var xOffset = anchorPoints[i].x - center.x;
+            var yOffset = anchorPoints[i].y - center.y;
+            var angle = Math.atan2(yOffset, xOffset);
+            return anchorPoints[i].y + offsetDistance*Math.sin(angle);
+          };
+          var getTextAnchor = function(d, i) {
+            var xOffset = anchorPoints[i].x - center.x;
+            if (xOffset >= -0.1) return "start";
+            return "end";
+          }
+          var getTextBaseline = function(d, i) {
+            var yOffset = anchorPoints[i].y - center.y;
+            if (yOffset > 0) return "hanging";
+            return "alphabetic";
+          }
+
+          var anchorLabels = chartBorder.selectAll("text").data(displayVars);
+          anchorLabels.exit().remove();
+          anchorLabels.enter().append("text");
+          anchorLabels.attr({
+            x: getTextX,
+            y: getTextY,
+            "font-size": 10,
+            "text-anchor": getTextAnchor,
+            "alignment-baseline": getTextBaseline,
+            "pointer-events": "none"
+          }).text(function(d){return d});
 
 
           chartBorder.append("circle")
@@ -381,7 +418,7 @@ div.container{
           return values;
         };
 
-      var vis = createVis("#visDiv", 400,400);
+      var vis = createVis("#visDiv", 440,440);
       var loadData = function() {
         url = document.getElementById("inputURL").value;
         console.log(url);
