@@ -8,7 +8,9 @@
 
       <style type="text/css">
       body{
-        font-family: sans-serif;;
+        font-family: "Helvetica";
+        background-color: #fcfcfc;
+        color: #474747;
       }
       circle.selected{
         fill:#3eb489;
@@ -19,25 +21,63 @@
       p{
         margin:0;
       }
-#setVars{
-  float: left;
-  background-color: #ededed;
-  border-radius: 10px;
-  padding: 15px;
-  margin-right:75px;
-  margin-left: 50px;
-  margin-top:0;
-  margin-bottom: 50px;
+
+#title{
+   margin: 0 auto 10px;
+   text-align: center;
+   max-width: 2000px;
+   line-height: 2.844rem;
+   font-size: 2.4rem;
 }
-#setVars p{
+#csvInput{
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  text-align: center;
+  height: 50px;
+  background-color: #e0e0e0;
+}
+  #csvInputText{
+    position: relative;
+  	top: 50%;
+  	transform: translateY(-50%);
+  }
+div.container{
+  margin-top: 20px;
+}
+.column-left{
+  float: left;
+  margin-top: inherit;
+  width: 20%;
+}
+.column-right{
+  float: right;
+  margin-top: inherit;
+   width: 20%;
+  }
+.column-center{
+  display: inline-block;
+  margin-top: inherit;
+  width: 60%;
+}
+.displayStyle{
+  /*background-color: #ededed;*/
+  padding: 15px;
+  margin-top:0;
+}
+.displayStyle p{
   text-align: center;
   line-height: 5%;
 }
+#subtitleDisplay{
+  font-size: 10px;
+}
+
 #visDiv{
-  float: left;
+  /*float: left;*/
 }
 #controls{
-  float:left;
+  /*float:left;*/
 }
 #info{
   position:absolute;
@@ -53,9 +93,20 @@
 }
 #info p{
   margin:0px;
-  font-family:sans-serif;
   font-size:12px;
 }
+.button {
+    background-color: white;
+    color: black;
+    border: 2px solid #63d297;
+}
+
+.button:hover {
+    background-color: #63d297;
+    color: white;
+}
+
+/*style="background-color:#63d297" */
 
 </style>
   </head>
@@ -65,31 +116,52 @@
       <!--<h3 style="text-align:center">Multivariate Exploration of US Census Data</h3>-->
     </div>
 
-    Enter csv url: <input type="text" id="inputURL" value="http://www.cs.middlebury.edu/~candrews/classes/infovis/data/green500_top_201511.csv">
-    <button type="button" onclick="loadData()">Load Data!</button>
-
-
-    <form action="setTooltipDisplay" id="setTooltipDisplay">
-      <p style="margin-bottom:10px"> <b>Show in Tooltip:</b> </p>
-          <table>
-       <tr>
-          <td id="tooltip"></td>
-       </tr>
-    </table>
-    </form>
-
-
-    <form action="setVariables" id="setVars">
-      <p style="margin-bottom:10px"> <b>Select Variables</b> </p>
-          <table>
-       <tr>
-          <td id="numeric"></td>
-       </tr>
-    </table>
-    </form>
-
-    <div id="visDiv">
+    <div id="csvInput">
+      <div id="csvInputText">
+      Enter csv url: <input type="text" id="inputURL" size="80px" value="http://www.cs.middlebury.edu/~candrews/classes/infovis/data/green500_top_201511.csv">
+      <button type="button" class="button" onclick="loadData()">Load Data!</button>
+      </dv>
     </div>
+
+
+    <div class="container">
+
+       <div class="column-center">
+
+         <div id="visDiv">
+         </div>
+
+       </div>
+
+       <div class="column-left">
+
+         <form action="setVariables" id="setVars" class="displayStyle">
+           <p style="margin-bottom:10px"> <b>Select Variables</b> </p>
+               <table>
+            <tr>
+               <td id="numeric"></td>
+            </tr>
+         </table>
+         </form>
+
+       </div>
+
+       <div class="column-right">
+
+         <form action="setTooltipDisplay" id="setTooltipDisplay" class="displayStyle">
+           <p style="margin-bottom:15px"> <b>Show in Tooltip:</b> </p>
+            <p id="subtitleDisplay" style="margin-bottom:10px"> (Variables automatically shown) </p>
+               <table>
+            <tr>
+               <td id="tooltip"></td>
+            </tr>
+         </table>
+         </form>
+
+       </div>
+    </div>
+
+
 
 
 <div id="info" class="hidden">
