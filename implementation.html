@@ -245,20 +245,22 @@
 
             var addToTable = function(propertyList) {
 
-              var inputlist = d3.select("#column1").selectAll("input").data(propertyList);
+              var inputlist = d3.select("#column1").selectAll("g").data(propertyList);
 
               inputlist.exit().remove();
 
-              var checkboxes = inputlist.enter().append("g");
+              var groups = inputlist.enter().append("g");
+              groups.append("input");
+              groups.append("text");
 
-              checkboxes.append("input")
+              inputlist.select("input")
               .attr({
                 "type":"checkbox",
                 "value":function(d){return d},
                 "label":function(d){return d}
               });
 
-              checkboxes.append("text").text(function(d){return d}).append("p");
+              inputlist.select("text").text(function(d){return d}).append("p");
             };
 
             var numericProps = []
