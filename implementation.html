@@ -44,8 +44,11 @@
   	top: 50%;
   	transform: translateY(-50%);
   }
+  .title2{
+    margin-top: 15px;
+  }
 div.container{
-  margin-top: 20px;
+  margin-top: 30px;
 }
 .column-left{
   float: left;
@@ -64,8 +67,10 @@ div.container{
 }
 .displayStyle{
   background-color: #ededed;
+  margin-left: 25px;
+  margin-right: 25px;
   padding: 15px;
-  margin-top:0;
+  margin-top:10px;
 }
 .displayStyle p{
   text-align: center;
@@ -143,7 +148,7 @@ div.container{
        <div class="column-left">
 
          <form action="setVariables" id="setVars" class="displayStyle">
-           <p style="margin-bottom:10px"> <b>Select Variables</b> </p>
+           <p style="margin-bottom:10px" class="title2"> <b>Select Variables</b> </p>
                <table>
             <tr>
                <td id="numeric"></td>
@@ -171,7 +176,7 @@ div.container{
        <div class="column-right">
 
          <form action="setTooltipDisplay" id="setTooltipDisplay" class="displayStyle">
-           <p style="margin-bottom:15px"> <b>Show in Tooltip:</b> </p>
+           <p style="margin-bottom:15px" class="title2"> <b>Show in Tooltip:</b> </p>
             <p id="subtitleDisplay" style="margin-bottom:10px"> (Variables automatically shown) </p>
                <table>
             <tr>
