@@ -350,15 +350,14 @@ div.container{
             nonNumeric.text(function(varName){return varName + ":  " + d[varName]});
 
 
+
             if (colorVar) {
               var colorCategory = info.select("#colorCategory").selectAll("p").data([colorVar]);
               colorCategory.exit().remove();
-              colorCategory.enter()
-                .append("p")
-                .style("color",function(d){return color});
+              colorCategory.enter().append("p")
 
-
-              colorCategory.text(function(varName){return varName + ":  " + d[varName]});
+              colorCategory.text(function(varName){return varName + ":  " + d[varName]})
+                .style("color", function(varName){return color(d[varName]);});
             }
 
             var numeric = info.select("#numeric").selectAll("p").data(displayVars);
