@@ -9,7 +9,7 @@
       <style type="text/css">
       body{
         font-family: "Helvetica";
-        background-color: #fcfcfc;
+        background-color: white;
         color: #474747;
       }
       circle.selected{
@@ -35,9 +35,11 @@
   width: 100%;
   text-align: center;
   height: 50px;
-  background-color: #e0e0e0;
+  background-color: #ededed;
+  border-top: solid black;
 }
   #csvInputText{
+    font-size: 1em;
     position: relative;
   	top: 50%;
   	transform: translateY(-50%);
@@ -61,7 +63,7 @@ div.container{
   width: 60%;
 }
 .displayStyle{
-  /*background-color: #ededed;*/
+  background-color: #ededed;
   padding: 15px;
   margin-top:0;
 }
@@ -72,12 +74,11 @@ div.container{
 #subtitleDisplay{
   font-size: 10px;
 }
-
-#visDiv{
-  /*float: left;*/
+#numeric{
+  text-align: left;
 }
-#controls{
-  /*float:left;*/
+#tooltip{
+  text-align: left;
 }
 #info{
   position:absolute;
@@ -95,6 +96,14 @@ div.container{
   margin:0px;
   font-size:12px;
 }
+/*.displayStyle.outer {
+  width: 100%;
+  text-align: center;
+}
+
+.inner {
+  display: inline-block;
+}*/
 .button {
     background-color: white;
     color: black;
@@ -106,14 +115,12 @@ div.container{
     color: white;
 }
 
-/*style="background-color:#63d297" */
 
 </style>
   </head>
   <body> <!-- Contains title, variable selection, vis and tooltop -->
     <div id="title">
-      <h1>RadViz Implementation</h1>
-      <!--<h3 style="text-align:center">Multivariate Exploration of US Census Data</h3>-->
+      <h1> RadViz Implementation</h1>
     </div>
 
     <div id="csvInput">
