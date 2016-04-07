@@ -97,7 +97,11 @@ div.container{
 #info p{
   margin:0px;
   font-size:12px;
+  font-weight: bold;
 }
+/*#colorCategory p{
+  color: blue;
+}*/
 /*.displayStyle.outer {
   width: 100%;
   text-align: center;
@@ -189,9 +193,11 @@ div.container{
 
 
 <div id="info" class="hidden">
-  <g id="nonNumeric"></g>
-  <g id="colorCategory"></g>
-  <g id="numeric"></g>
+  <div class="tooltipText" style="text-align:left">
+    <g id="nonNumeric"></g>
+    <g id="colorCategory"></g>
+    <g id="numeric"></g>
+  </div>
 </div>
 
 <!--
@@ -341,19 +347,24 @@ div.container{
             var nonNumeric = info.select("#nonNumeric").selectAll("p").data(tooltipVars);
             nonNumeric.exit().remove();
             nonNumeric.enter().append("p");
-            nonNumeric.text(function(varName){return varName + ": " + d[varName]});
+            nonNumeric.text(function(varName){return varName + ":  " + d[varName]});
+
 
             if (colorVar) {
               var colorCategory = info.select("#colorCategory").selectAll("p").data([colorVar]);
               colorCategory.exit().remove();
-              colorCategory.enter().append("p");
-              colorCategory.text(function(varName){return varName + ": " + d[varName]});
+              colorCategory.enter()
+                .append("p")
+                .style("color",function(d){return color});
+
+
+              colorCategory.text(function(varName){return varName + ":  " + d[varName]});
             }
 
             var numeric = info.select("#numeric").selectAll("p").data(displayVars);
             numeric.exit().remove();
             numeric.enter().append("p");
-            numeric.text(function(varName){return varName + ": " + d[varName]});
+            numeric.text(function(varName){return varName + ":  " + d[varName]});
 
             var coordinates = d3.mouse(svg.node());
             var bbox = svg.node().getBoundingClientRect();
@@ -514,7 +525,8 @@ div.container{
 //TODO:
   // Tooltip
     //DONE: HTML checkbox to sync data with tooltip
-    //formatting (some stuff is centered when it shouldnt be)
+    //DONE: aligned tooltip text
+    //Position formatting? (seems inconsistent?)
   // Color by:
     //Generate legend
     //DONE: 10 == cutoff for categorical data (use category(10))
