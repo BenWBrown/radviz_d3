@@ -127,6 +127,8 @@
         };
 
         var vis = function(){
+          console.log("displayVars:"); console.log(displayVars);
+          console.log("tooltipvars:"); console.log(tooltipVars)
           // xScale.domain(d3.extent(dataset, function(d){return +d[xData];}));
           // yScale.domain(d3.extent(dataset, function(d){return +d[yData];}));
           anchorPoints = displayVars.map(function(d, i, arr){return angleToPoint((2*Math.PI/arr.length)*i);});
@@ -293,6 +295,7 @@
 
             vis.loadData(dataset);
             vis.setVars([]);
+            vis.setTooltipVars([]);
             vis();
         });
 
