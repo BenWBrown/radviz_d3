@@ -151,6 +151,21 @@ div.container{
          </table>
          </form>
 
+         <form action="setColorVar" id="setColorVar" class="displayStyle">
+           <p style="margin-bottom:15px"> <b>Color by:</b> </p>
+               <table>
+            <tr>
+               <td id="colorVar">
+               <g><input type="radio" value="-1" label="None" name="colorAttribute" checked></input>
+                  <text>None</text>
+                  <p></p>
+                </g>
+                <g id="colorGroup"></g>
+                </td>
+            </tr>
+         </table>
+         </form>
+
        </div>
 
        <div class="column-right">
@@ -183,7 +198,7 @@ div.container{
 
     <script>
       var createVis = function(parent, width, height){
-        var dataset, displayVars, springConstants, anchorPoints, tooltipVars;
+        var dataset, displayVars, springConstants, anchorPoints, tooltipVars, colorVar;
         //var variables = [];
 
         var margins = {top:20, bottom:60, left: 60, right:20};
@@ -191,6 +206,7 @@ div.container{
         var chartHeight = height - margins.top - margins.bottom;
         var center = {x: chartWidth/2, y: chartHeight/2};
         var radius = Math.min(center.x, center.y);
+        var color = d3.scale.category10();
 
 
         var svg = d3.select(parent)
@@ -211,10 +227,6 @@ div.container{
         };
 
         var vis = function(){
-          console.log("displayVars:"); console.log(displayVars);
-          console.log("tooltipvars:"); console.log(tooltipVars)
-          // xScale.domain(d3.extent(dataset, function(d){return +d[xData];}));
-          // yScale.domain(d3.extent(dataset, function(d){return +d[yData];}));
           anchorPoints = displayVars.map(function(d, i, arr){return angleToPoint((2*Math.PI/arr.length)*i);});
 
           var anchorCircles = chartBorder.selectAll("circle").data(anchorPoints);
@@ -243,6 +255,8 @@ div.container{
           springConstants.forEach(function(element, index, array){
             element.domain(d3.extent(dataset, function(d){return +d[displayVars[index]];}));
           });
+
+          if (colorVar) color.domain(allValuesOf(dataset, colorVar));
 
           var circles = chart.selectAll("circle").data(dataset);
 
@@ -273,7 +287,9 @@ div.container{
             cx: getX,
             cy: getY,
             r: 2
-          });
+          }).style("fill", function(d){
+            if (!colorVar) {return "black";}
+            return color(d[colorVar]);});
 
           circles.on("mouseover", function(d){
             d3.select(this)
@@ -333,8 +349,24 @@ div.container{
           return vis;
         }
 
+        vis.setColorVar = function(value) {
+          if (!arguments.length) return colorVar;
+          colorVar = value;
+          return vis;
+        }
+
         return vis;
       };
+
+      var allValuesOf = function(data, variable) {
+          var values = [];
+          for (var i=0; i<data.length; i++){
+            if (!values.includes(data[i][variable])) {
+              values.push(data[i][variable]);
+            }
+          }
+          return values;
+        };
 
       var vis = createVis("#visDiv", 400,400);
       var loadData = function() {
@@ -349,7 +381,7 @@ div.container{
               return !isNaN(parseFloat(n)) && isFinite(n);
             }
 
-            var addToTable = function(propertyList, parent, name) {
+            var addToTable = function(propertyList, parent, name, type) {
 
               var inputlist = d3.select(parent).selectAll("g").data(propertyList);
 
@@ -361,7 +393,7 @@ div.container{
 
               inputlist.select("input")
               .attr({
-                "type":"checkbox",
+                "type":type,
                 "value":function(d){return d},
                 "label":function(d){return d},
                 "name":name
@@ -376,10 +408,20 @@ div.container{
                 numericProps.push(property);
               }
             }
-            addToTable(numericProps, "#numeric", "numericAttribute");
+            addToTable(numericProps, "#numeric", "numericAttribute", "checkbox");
 
             //adding all data attributes to tooltip table
-            addToTable(Object.keys(dataset[0]), "#tooltip", "tooltipAttribute");
+            addToTable(Object.keys(dataset[0]), "#tooltip", "tooltipAttribute", "checkbox");
+
+            //find categorical vars
+            var categoricalVars = [];
+            for (property in dataset[0]) {
+              if (allValuesOf(dataset, property).length <= 10) {
+                categoricalVars.push(property);
+              }
+            }
+
+            addToTable(categoricalVars, "#colorGroup", "colorAttribute", "radio");
 
             vis.loadData(dataset);
             vis.setVars([]);
@@ -410,6 +452,14 @@ div.container{
           vis.setTooltipVars(variables);
           vis();
         });
+
+        var colorAttributeSelection = d3.select("#setColorVar").on("change", function(d){
+          var selection = document.querySelector('input[name="colorAttribute"]:checked');
+          var val = selection.value;
+          if (val == "-1") vis.setColorVar(null);
+          else vis.setColorVar(val);
+          vis();
+        })
       }
 
 
