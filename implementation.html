@@ -69,11 +69,21 @@
     <button type="button" onclick="loadData()">Load Data!</button>
 
 
+    <form action="setTooltipDisplay" id="setTooltipDisplay">
+      <p style="margin-bottom:10px"> <b>Show in Tooltip:</b> </p>
+          <table>
+       <tr>
+          <td id="tooltip"></td>
+       </tr>
+    </table>
+    </form>
+
+
     <form action="setVariables" id="setVars">
       <p style="margin-bottom:10px"> <b>Select Variables</b> </p>
           <table>
        <tr>
-          <td id="column1"></td>
+          <td id="numeric"></td>
        </tr>
     </table>
     </form>
@@ -89,7 +99,7 @@
 
     <script>
       var createVis = function(parent, width, height){
-        var dataset, displayVars, springConstants, anchorPoints;
+        var dataset, displayVars, springConstants, anchorPoints, tooltipVars;
         //var variables = [];
 
         var margins = {top:20, bottom:60, left: 60, right:20};
@@ -224,7 +234,13 @@
         vis.setVars = function(value){
           if (!arguments.length) return displayVars;
           displayVars = value;
-          return vis
+          return vis;
+        }
+
+        vis.setTooltipVars = function(value) {
+          if (!arguments.length) return tooltipVars;
+          tooltipVars = value;
+          return vis;
         }
 
         return vis;
@@ -243,9 +259,9 @@
               return !isNaN(parseFloat(n)) && isFinite(n);
             }
 
-            var addToTable = function(propertyList) {
+            var addToTable = function(propertyList, parent, name) {
 
-              var inputlist = d3.select("#column1").selectAll("g").data(propertyList);
+              var inputlist = d3.select(parent).selectAll("g").data(propertyList);
 
               inputlist.exit().remove();
 
@@ -257,19 +273,23 @@
               .attr({
                 "type":"checkbox",
                 "value":function(d){return d},
-                "label":function(d){return d}
+                "label":function(d){return d},
+                "name":name
               });
 
               inputlist.select("text").text(function(d){return d}).append("p");
             };
 
-            var numericProps = []
+            var numericProps = [];
             for (property in dataset[0]) {
               if (isNumeric(dataset[0][property])) {
                 numericProps.push(property);
               }
             }
-            addToTable(numericProps);
+            addToTable(numericProps, "#numeric", "numericAttribute");
+
+            //adding all data attributes to tooltip table
+            addToTable(Object.keys(dataset[0]), "#tooltip", "tooltipAttribute");
 
             vis.loadData(dataset);
             vis.setVars([]);
@@ -277,8 +297,8 @@
         });
 
         // Allow for user to adjust displayed variables and redraws vis as changes occur.
-        var selection = d3.select("#setVars").on("change", function(d){
-          var selection = document.querySelectorAll('input[type="checkbox"]:checked');
+        var numericAttributeSelection = d3.select("#setVars").on("change", function(d){
+          var selection = document.querySelectorAll('input[name="numericAttribute"]:checked');
           var variables = [];
           for (var i=0; i<selection.length; i++) {
             variables.push(selection[i].value);
@@ -287,7 +307,20 @@
           vis.setVars(variables);
           vis();
         });
+
+        //TODO: REFACTOR THIS AND ABOVE INTO ONE GENERAL FUNCTION
+        var tooltipAttributeSelection = d3.select("#setTooltipDisplay").on("change", function(d){
+          var selection = document.querySelectorAll('input[name="tooltipAttribute"]:checked');
+          var variables = [];
+          for (var i=0; i<selection.length; i++) {
+            variables.push(selection[i].value);
+          }
+
+          vis.setTooltipVars(variables);
+          vis();
+        });
       }
+
 
 
 //TODO:
