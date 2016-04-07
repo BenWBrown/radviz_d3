@@ -83,7 +83,7 @@
 
 
 <div id="info" class="hidden">
-<p id="state">State</p>
+<p id="name">Name</p>
 <p><span id="variable1">Variable X</span>: <span id="value1">Value 1</span></p>
 <p><span id="variable2">Variable Y</span>: <span id="value2">Value 2</span></p>
 
@@ -154,19 +154,7 @@
 
           circles.enter().append("circle");
 
-          // circles.transition()
-          //   .duration(1000)
-          //   .attr({
-          //   cx: function(d){return getX(d);},
-          //   cy: function(d){return getY(d);},
-          //   r : 2
-          //   });
-
           var getPt = function(d) {
-            // var sum = 0;
-            // for (var i = 0; i < springConstants.length; i++) {
-            //   sum += springConstants[i](d[displayVars[i]]);
-            // }
             var list = springConstants.map(function(element, index, array){
               return element(d[displayVars[index]]);}
               );
@@ -176,7 +164,6 @@
               pt.x += (list[i]/sum)*anchorPoints[i].x
               pt.y += (list[i]/sum)*anchorPoints[i].y
             }
-
             return pt;
           }
 
@@ -240,19 +227,6 @@
           return vis
         }
 
-
-        // vis.setX = function(value){
-        //   if (!arguments.length) return xData;
-        //   xData = value;
-        //   return vis;
-        // }
-
-        // vis.setY = function(value){
-        //   if (!arguments.length) return yData;
-        //   yData = value;
-        //   return vis;
-        // }
-
         return vis;
       };
 
@@ -269,8 +243,6 @@
               return !isNaN(parseFloat(n)) && isFinite(n);
             }
 
-
-            //TODO: ELLEN: ACTUALLY WRITE THIS.
             var addToTable = function(propertyList) {
 
               var inputlist = d3.select("#column1").selectAll("input").data(propertyList);
@@ -287,10 +259,6 @@
               });
 
               checkboxes.append("text").text(function(d){return d}).append("p");
-
-              //checkboxes.append("p").text("hello");
-              //.style("text", function(d){return d});
-
             };
 
             var numericProps = []
