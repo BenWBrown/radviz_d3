@@ -79,10 +79,7 @@ div.container{
 #subtitleDisplay{
   font-size: 10px;
 }
-#numeric{
-  text-align: left;
-}
-#tooltip{
+.selectionAlignment{
   text-align: left;
 }
 #info{
@@ -151,7 +148,7 @@ div.container{
            <p style="margin-bottom:10px" class="title2"> <b>Select Variables</b> </p>
                <table>
             <tr>
-               <td id="numeric"></td>
+               <td id="numeric" class="selectionAlignment"></td>
             </tr>
          </table>
          </form>
@@ -160,7 +157,7 @@ div.container{
            <p style="margin-bottom:15px"> <b>Color by:</b> </p>
                <table>
             <tr>
-               <td id="colorVar">
+               <td id="colorVar" class="selectionAlignment">
                <g><input type="radio" value="-1" label="None" name="colorAttribute" checked></input>
                   <text>None</text>
                   <p></p>
@@ -180,7 +177,7 @@ div.container{
             <p id="subtitleDisplay" style="margin-bottom:10px"> (Variables automatically shown) </p>
                <table>
             <tr>
-               <td id="tooltip"></td>
+               <td id="tooltip" class="selectionAlignment"></td>
             </tr>
          </table>
          </form>
