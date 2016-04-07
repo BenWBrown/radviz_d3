@@ -193,6 +193,7 @@ div.container{
 
 <div id="info" class="hidden">
   <g id="nonNumeric"></g>
+  <g id="colorCategory"></g>
   <g id="numeric"></g>
 </div>
 
@@ -307,6 +308,13 @@ div.container{
             nonNumeric.exit().remove();
             nonNumeric.enter().append("p");
             nonNumeric.text(function(varName){return varName + ": " + d[varName]});
+
+            if (colorVar) {
+              var colorCategory = info.select("#colorCategory").selectAll("p").data([colorVar]);
+              colorCategory.exit().remove();
+              colorCategory.enter().append("p");
+              colorCategory.text(function(varName){return varName + ": " + d[varName]});
+            }
 
             var numeric = info.select("#numeric").selectAll("p").data(displayVars);
             numeric.exit().remove();
