@@ -93,9 +93,14 @@
 
 
 <div id="info" class="hidden">
+  <g id="nonNumeric"></g>
+  <g id="numeric"></g>
+</div>
+
+<!--
 <p id="name">Name</p>
 <p><span id="variable1">Variable X</span>: <span id="value1">Value 1</span></p>
-<p><span id="variable2">Variable Y</span>: <span id="value2">Value 2</span></p>
+<p><span id="variable2">Variable Y</span>: <span id="value2">Value 2</span></p>-->
 
     <script>
       var createVis = function(parent, width, height){
@@ -197,12 +202,16 @@
               .attr("r", 8);
 
             var info = d3.select("#info");
-            info.select("#state").text(d.State);
-            // My failed attempt to get this to work: (variables is undefined)
-            // info.select("#variable1").text(variables[1]);
-            // info.select("#value1").text(variables[1][xData]);
-            // info.select("#variable2").text(yData);
-            // info.select("#value2").text(d[yData]);
+
+            var nonNumeric = info.select("#nonNumeric").selectAll("p").data(tooltipVars);
+            nonNumeric.exit().remove();
+            nonNumeric.enter().append("p");
+            nonNumeric.text(function(varName){return varName + ": " + d[varName]});
+
+            var numeric = info.select("#numeric").selectAll("p").data(displayVars);
+            numeric.exit().remove();
+            numeric.enter().append("p");
+            numeric.text(function(varName){return varName + ": " + d[varName]});
 
             var coordinates = d3.mouse(svg.node());
             var bbox = svg.node().getBoundingClientRect();
