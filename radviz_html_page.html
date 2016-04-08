@@ -19,8 +19,8 @@
 		letter-spacing: 2px;
 		font-family: "Geneva";
 		font-weight: lighter;
-		margin-left: 25px;
-		margin-right: 25px;
+		margin-left: 60px;
+		margin-right: 60px;
 	}
 	li{
 		margin: 10px;
@@ -52,6 +52,7 @@
 	#general_title{
 		margin-top: 30px;
 		color: #63d297;
+		padding-top: 30px;
 	}
 	#bibliography{
 				font-size: 15px;
@@ -59,6 +60,9 @@
 	#presentation_materials{
 		margin-top: 40px;
 		line-height: 25px;
+	}
+	#presentation_materials h3{
+		color: #66ffb2;
 	}
 </style>
 
@@ -79,12 +83,12 @@
 	</div>
 
 	<div id="introduction">
-		<h2 id="general_title">What is a RadViz?</h2>
-		<p>RadViz is a non-linear visualization tool that displays data on three or more attributes in a two-dimensional projection. While the attributes are represented through equally-spaced points along the perimeter of a circle, the actual data instances are positioned within the circle according to their proportional composition of each attribute.</p>
+		<h1 id="general_title">What is a RadViz?</h1>
+		<p>RadViz is a non-linear visualization tool that displays data on three or more attributes in a two-dimensional projection. While the attributes are represented through equally-spaced points along the perimeter of a circle, the actual data instances are positioned within the circle according to their proportional composition of each attribute. RadViz is a powerful tool that is highly effective at revealing clusters and outliers in a highly-dimensional dataset.</p>
 </div>
 
 <div id="implementation">
-	<h2 id="general_title">Implementation in D3</h2>
+	<h1 id="general_title">Implementation in D3</h1>
 	<p> Here is a <a href=implementation.html>link</a> to our RadViz implementation in D3. BEN ADD MORE!!!</p>
 </div>
 
@@ -114,17 +118,16 @@
 
 
 	<div id="presentation_materials">
+		<h3>Other RadViz Implementations</h3>
+		<ul>
+			<li><a href="http://homes.esat.kuleuven.be/~bioiuser/blog/radviz-rewrite-in-d3/">Visual Data Analysis Lab</a></li>
+			<li><a href="https://github.com/biovisualize/radviz">Biovisualize Radviz Github Repo</a> (see examples)</li>
+		</ul>
 		<h3>Presentation materials</h3>
 	<ul>
 		<li><a href="https://docs.google.com/presentation/d/1qh39xaxG2b13rzcrk_KVVviHGJSdPeTq2p6jZTyzBjQ/edit?usp=sharing">Google Slides Presentation</a></li>
 		<li><a href="https://github.com/BenWBrown/radviz_d3">Presentation Github Repo</a></li>
 	</ul>
-	<h3>Other RadViz Implementations</h3>
-	<ul>
-		<li><a href="http://homes.esat.kuleuven.be/~bioiuser/blog/radviz-rewrite-in-d3/">Visual Data Analysis Lab</a></li>
-		<li><a href="https://github.com/biovisualize/radviz">Biovisualize Radviz Github Repo</a> (see examples)</li>
-	</ul>
-
 </body>
 
 
