@@ -4,125 +4,7 @@
     <meta charset="utf-8">
     <title>Radviz D3</title>
       <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
-
-
-      <style type="text/css">
-      body{
-        font-family: "Helvetica";
-        background-color: white;
-        color: #474747;
-      }
-      circle.selected{
-        fill:#3eb489;
-      }
-      circle{
-        fill:black;
-      }
-      p{
-        margin:0;
-      }
-
-#title{
-   margin: 0 auto 10px;
-   text-align: center;
-   max-width: 2000px;
-   line-height: 2.844rem;
-   font-size: 2.4rem;
-}
-#csvInput{
-  margin-left: auto;
-  margin-right: auto;
-  width: 100%;
-  text-align: center;
-  height: 50px;
-  background-color: #ededed;
-  border-top: solid black;
-}
-  #csvInputText{
-    font-size: 1em;
-    position: relative;
-  	top: 50%;
-  	transform: translateY(-50%);
-  }
-  .title2{
-    margin-top: 15px;
-  }
-div.container{
-  margin-top: 30px;
-}
-.column-left{
-  float: left;
-  margin-top: inherit;
-  width: 20%;
-}
-.column-right{
-  float: right;
-  margin-top: inherit;
-   width: 20%;
-  }
-.column-center{
-  display: inline-block;
-  margin-top: inherit;
-  width: 60%;
-}
-.displayStyle{
-  background-color: #ededed;
-  margin-left: 25px;
-  margin-right: 25px;
-  padding: 15px;
-  margin-top:10px;
-}
-.displayStyle p{
-  text-align: center;
-  line-height: 5%;
-}
-#subtitleDisplay{
-  font-size: 10px;
-}
-.selectionAlignment{
-  text-align: left;
-}
-#info{
-  position:fixed;
-  width:200px;
-  height:auto;
-  padding:10px;
-  background-color:white;
-  border-radius:10px;
-  box-shadow: 4px 4px 10px rgba(0,0,0,0.4);
-}
-#info.hidden{
-  display:none;
-}
-#info p{
-  margin:0px;
-  font-size:12px;
-  font-weight: bold;
-}
-/*#colorCategory p{
-  color: blue;
-}*/
-/*.displayStyle.outer {
-  width: 100%;
-  text-align: center;
-}
-
-.inner {
-  display: inline-block;
-}*/
-.button {
-    background-color: white;
-    color: black;
-    border: 2px solid #63d297;
-}
-
-.button:hover {
-    background-color: #63d297;
-    color: white;
-}
-
-
-</style>
+      <link rel="stylesheet" type="text/css" href="radviz.css">
   </head>
   <body> <!-- Contains title, variable selection, vis and tooltop -->
     <div id="title">
@@ -189,9 +71,6 @@ div.container{
        </div>
     </div>
 
-
-
-
 <div id="info" class="hidden">
   <div class="tooltipText" style="text-align:left">
     <g id="nonNumeric"></g>
@@ -200,15 +79,10 @@ div.container{
   </div>
 </div>
 
-<!--
-<p id="name">Name</p>
-<p><span id="variable1">Variable X</span>: <span id="value1">Value 1</span></p>
-<p><span id="variable2">Variable Y</span>: <span id="value2">Value 2</span></p>-->
-
     <script>
       var createVis = function(parent, width, height){
         var dataset, displayVars, springConstants, anchorPoints, tooltipVars, colorVar;
-        //var variables = [];
+
 
         var margins = {top:60, bottom:60, left: 60, right:60};
         var chartWidth = width - margins.left - margins.right;
@@ -242,8 +116,7 @@ div.container{
           anchorCircles.exit().remove();
           anchorCircles.enter().append("circle");
           anchorCircles
-          // .transition()  //THESE *ALMOST* WORK. i think we need a finer selection as to not select the border circle
-          // .duration(500) //TODO: FIX THEM
+
           .attr({
             cx: function(d){return d.x},
             cy: function(d){return d.y},
@@ -348,8 +221,6 @@ div.container{
             nonNumeric.exit().remove();
             nonNumeric.enter().append("p");
             nonNumeric.text(function(varName){return varName + ":  " + d[varName]});
-
-
 
             if (colorVar) {
               var colorCategory = info.select("#colorCategory").selectAll("p").data([colorVar]);
@@ -493,12 +364,10 @@ div.container{
           for (var i=0; i<selection.length; i++) {
             variables.push(selection[i].value);
           }
-          //console.log(variables);
           vis.setVars(variables);
           vis();
         });
 
-        //TODO: REFACTOR THIS AND ABOVE INTO ONE GENERAL FUNCTION
         var tooltipAttributeSelection = d3.select("#setTooltipDisplay").on("change", function(d){
           var selection = document.querySelectorAll('input[name="tooltipAttribute"]:checked');
           var variables = [];
@@ -518,29 +387,6 @@ div.container{
           vis();
         })
       }
-
-
-
-//TODO:
-  // Tooltip
-    //DONE: HTML checkbox to sync data with tooltip
-    //DONE: aligned tooltip text
-    //Position formatting? (seems inconsistent?)
-  // Color by:
-    //Generate legend
-    //DONE: 10 == cutoff for categorical data (use category(10))
-    //DONE: HTML input form with checks for any dimensions with less than 10 different results
-    //DONE: None also an option
-  // Make the page pretty
-    //format 'color by' box
-
-
-//TODO:
-  //presentation_materials
-    // spring metaphor: Ben add picture
-    //
-
-
 
     </script>
   </body>
