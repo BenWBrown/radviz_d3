@@ -84,12 +84,19 @@
 
 	<div id="introduction">
 		<h1 id="general_title">What is a RadViz?</h1>
-		<p>RadViz is a non-linear visualization tool that displays data on three or more attributes in a two-dimensional projection. While the attributes are represented through equally-spaced points along the perimeter of a circle, the actual data instances are positioned within the circle according to their proportional composition of each attribute. RadViz is a powerful tool that is highly effective at revealing clusters and outliers in a highly-dimensional dataset.</p>
+		<p>RadViz is a non-linear visualization tool that displays data on three or more attributes in a two-dimensional projection. While the attributes are represented through equally-spaced points along the perimeter of a circle, the actual data instances are positioned within the circle according to their proportional composition of each attribute (check out more about the math <a href="http://www.agocg.ac.uk/reports/visual/casestud/brunsdon/radviz.htm">here</a>). RadViz is a powerful tool that is effective at revealing clusters in a high dimensional dataset.</p>
 </div>
 
 <div id="implementation">
 	<h1 id="general_title">Implementation in D3</h1>
-	<p> Here is a <a href=implementation.html>link</a> to our RadViz implementation in D3. BEN ADD MORE!!!</p>
+	<p> After searching around the web a little, we found very few interactive and visually appealing RadViz implementations, so we took on the challenge of building our own using D3. The tool we developed focuses on exploratory data analysis by making the visualization highly customizable. The greatest advantage of our tool over other implementations is that it allows the user to color the data points based on any categorical attribute, which can illuminate patterns that are not otherwise visible.</p>
+	<p>Here is a <a href=implementation.html>link</a> to our RadViz implementation in D3. It is still a work in progress (as is all software), so feel free to contribute by submitting a pull request to our <a href="https://github.com/BenWBrown/radviz_d3">GitHub repo</a>.</p>
+</div>
+
+<div id="discussion">
+	<h1 id="general_title">Pros and Cons of RadViz</h1>
+	<p> As stated earlier, RadViz is a powerful tool at identifying clusters in high dimensional data. However, it has few uses outside this narrow focus, and it takes quite a bit of time to learn how to use the visualization to effectively find clusters in data. Another downside to RadViz is the fact that if you map more than six or so dimensions or if you have a very large dataset, the visualization gets messy and can be difficult to interpret. Additionally, the visualization is not robust to outliers because of the relative mapping of each attribute. In other words, if one data point is a large outlier, it can hide clusters in the rest of the data.
+	</p>
 </div>
 
 <div id="bibliography">
@@ -118,7 +125,7 @@
 
 
 	<div id="presentation_materials">
-		<h3>Other RadViz Implementations</h3>
+		<h3 id="otherImplementations">Other RadViz Implementations</h3>
 		<ul>
 			<li><a href="http://homes.esat.kuleuven.be/~bioiuser/blog/radviz-rewrite-in-d3/">Visual Data Analysis Lab</a></li>
 			<li><a href="https://github.com/biovisualize/radviz">Biovisualize Radviz Github Repo</a> (see examples)</li>
