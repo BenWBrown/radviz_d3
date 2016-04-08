@@ -4,13 +4,15 @@
     <meta charset="utf-8">
     <title>Radviz D3</title>
       <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+      <!-- Link to css file. -->
       <link rel="stylesheet" type="text/css" href="radviz.css">
   </head>
-  <body> <!-- Contains title, variable selection, vis and tooltop -->
+  <body>
     <div id="title">
       <h1> RadViz Implementation</h1>
     </div>
 
+    <!-- Create html for csv input. -->
     <div id="csvInput">
       <div id="csvInputText">
       Enter csv url: <input type="text" id="inputURL" size="80px" value="http://www.cs.middlebury.edu/~candrews/classes/infovis/data/green500_top_201511.csv">
@@ -19,15 +21,16 @@
     </div>
 
 
+    <!-- Divide page into columns to position items. -->
     <div class="container">
-
+      <!-- CENTER COLUMN -->
        <div class="column-center">
 
          <div id="visDiv">
          </div>
-
        </div>
 
+        <!-- LEFT COLUMN -->
        <div class="column-left">
 
          <form action="setVariables" id="setVars" class="displayStyle">
@@ -56,6 +59,7 @@
 
        </div>
 
+        <!-- RIGHT COLUMN -->
        <div class="column-right">
 
          <form action="setTooltipDisplay" id="setTooltipDisplay" class="displayStyle">
@@ -71,19 +75,20 @@
        </div>
     </div>
 
-<div id="info" class="hidden">
-  <div class="tooltipText" style="text-align:left">
-    <g id="nonNumeric"></g>
-    <g id="colorCategory"></g>
-    <g id="numeric"></g>
+  <!-- Create html for tooltip selection -->
+  <div id="info" class="hidden">
+    <div class="tooltipText" style="text-align:left">
+      <g id="nonNumeric"></g>
+      <g id="colorCategory"></g>
+      <g id="numeric"></g>
+    </div>
   </div>
-</div>
 
     <script>
       var createVis = function(parent, width, height){
         var dataset, displayVars, springConstants, anchorPoints, tooltipVars, colorVar;
 
-
+        // Set dimensions.
         var margins = {top:60, bottom:60, left: 60, right:60};
         var chartWidth = width - margins.left - margins.right;
         var chartHeight = height - margins.top - margins.bottom;
@@ -109,7 +114,11 @@
           };
         };
 
+
+        // vis() redraws the visualization.
         var vis = function(){
+
+          // Create anchor points and style anchor points.
           anchorPoints = displayVars.map(function(d, i, arr){return angleToPoint((2*Math.PI/arr.length)*i);});
 
           var anchorCircles = chartBorder.selectAll("circle").data(anchorPoints);
@@ -123,6 +132,8 @@
             r: 3
           }).style("fill", "black");
 
+
+          // Create anchor point labels.
           var offsetDistance = 7;
 
           var getTextX = function(d, i) {
@@ -160,7 +171,7 @@
             "pointer-events": "none"
           }).text(function(d){return d});
 
-
+          // Create circle for RadViz
           chartBorder.append("circle")
           .attr({
             cx: center.x,
